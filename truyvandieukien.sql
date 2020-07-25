@@ -35,3 +35,14 @@ dbo.GIAOVIEN.MAGV = dbo.NGUOITHAN.MAGV
 SELECT HOTEN, TENDT FROM dbo.GIAOVIEN, dbo.DETAI, dbo.THAMGIADT
 WHERE dbo.GIAOVIEN.MAGV =  dbo.THAMGIADT.MAGV
 AND dbo.DETAI.MADT =  dbo.THAMGIADT.MADT
+
+-- xuất ra thông tin giáo viên và giáo viên quản lý chủ nhiệm người đó
+SELECT gv1.HOTEN, gv2.HOTEN FROM dbo.GIAOVIEN AS gv1, dbo.GIAOVIEN AS gv2
+WHERE gv1.GVQLCM = gv2.MAGV
+
+-- xuất ra số lượng giáo viên của khoa CNTT
+SELECT COUNT(*) AS 'số lượng giáo viên của khoa CNTT' FROM dbo.GIAOVIEN AS GV, dbo.BOMON AS BM, dbo.KHOA AS K
+WHERE GV.MABM = BM.MABM AND
+BM.MAKHOA = K.MAKHOA AND
+K.MAKHOA = 'CNTT'
+
