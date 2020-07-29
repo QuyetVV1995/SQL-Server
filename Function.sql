@@ -1,0 +1,20 @@
+USE HowKteam
+GO
+
+CREATE FUNCTION UF_selectallGV() 
+RETURNS TABLE AS RETURN SELECT * FROM dbo.GIAOVIEN
+GO
+SELECT * FROM UF_selectallGV()
+
+-- tao function voi parameter
+CREATE FUNCTION UF_selectLuongGV(@maGV CHAR(10))
+RETURNS  int 
+AS
+BEGIN
+	DECLARE @luong INT
+	SELECT @luong = LUONG FROM dbo.GIAOVIEN WHERE MAGV = @maGV
+	RETURN @luong
+END
+
+SELECT dbo.UF_selectLuongGV('001')  AS DB
+SELECT * FROM dbo.GIAOVIEN
