@@ -1,0 +1,96 @@
+CREATE DATABASE Quan_ly_sinh_vien
+GO	
+USE Quan_ly_sinh_vien
+GO
+
+CREATE TABLE Khoa
+(
+	Ma_Khoa VARCHAR(10) PRIMARY KEY,
+	Ten_Khoa NVARCHAR(10),
+	Nam_Thanh_Lap INT
+)
+GO
+
+CREATE TABLE Khoa_hoc
+(
+	Ma_Khoa_Hoc VARCHAR(10) PRIMARY KEY,
+	Nam_bat_dau INT,
+	Nam_ket_thuc INT
+)
+GO
+
+CREATE TABLE Chuong_Trinh_Hoc
+(
+	Ma_CT VARCHAR(10) PRIMARY KEY,
+	Ten_CT INT
+)
+GO
+
+CREATE TABLE Lop
+(
+	Ma_Lop VARCHAR(10) PRIMARY KEY,
+	Ma_Khoa VARCHAR(10) NOT NULL,
+	Ma_Khoa_Hoc VARCHAR(10) NOT NULL,
+	Ma_CT VARCHAR(10) NOT NULL,
+	STT INT
+
+	FOREIGN KEY(Ma_Khoa) REFERENCES dbo.Khoa(Ma_Khoa),
+	FOREIGN KEY(Ma_Khoa_Hoc) REFERENCES dbo.Khoa_hoc(Ma_Khoa_Hoc),
+	FOREIGN KEY(Ma_CT) REFERENCES dbo.Chuong_Trinh_Hoc(Ma_CT)
+)
+GO
+
+CREATE TABLE Sinh_vien
+(
+	MaSV VARCHAR(10) PRIMARY KEY,
+	Ho_ten VARCHAR(100),
+	Nam_Sinh INT,
+	Dan_toc VARCHAR(20),
+	STT INT,
+	Ma_Lop VARCHAR(10) NOT NULL
+	FOREIGN KEY(Ma_Lop) REFERENCES dbo.Lop(Ma_Lop)
+)
+GO
+
+CREATE TABLE Mon_hoc
+(
+	MaMH VARCHAR(10) PRIMARY KEY,
+	Ma_Khoa VARCHAR(10) NOT NULL,
+	TenMH NVARCHAR(100),
+
+	FOREIGN KEY (Ma_Khoa) REFERENCES dbo.Khoa(Ma_Khoa)
+
+)
+GO
+
+CREATE TABLE Ket_qua
+(
+	MaSV VARCHAR(10) NOT NULL,
+	MaMH VARCHAR(10) NOT NULL,
+	Lan_thi INT NOT NULL,
+	Diem_thi FLOAT
+
+	PRIMARY KEY(MaSV, MaMH, Lan_thi),
+
+	FOREIGN KEY (MaSV) REFERENCES dbo.Sinh_vien(MaSV),
+	FOREIGN KEY (MaMH) REFERENCES dbo.Mon_hoc(MaMH)
+)
+GO
+CREATE TABLE Giang_KHoa(
+	Ma_CT VARCHAR(10) NOT NULL,
+	Ma_khoa VARCHAR(10) NOT NULL,
+	MaMH VARCHAR(10) NOT NULL,
+	Nam_hoc INT NOT NULL,
+	Hoc_ky INT,
+	STLT INT,
+	STTH INT,
+	So_Tin_chi INT
+
+	PRIMARY KEY(Ma_CT, Ma_khoa, MaMH, Nam_hoc),
+
+	FOREIGN KEY(Ma_CT) REFERENCES dbo.Chuong_Trinh_Hoc(Ma_CT),
+	FOREIGN KEY(Ma_khoa) REFERENCES dbo.Khoa(Ma_Khoa),
+	FOREIGN KEY(MaMH) REFERENCES dbo.Mon_hoc(MaMH)
+
+)
+GO
