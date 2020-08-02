@@ -10,6 +10,8 @@ CREATE TABLE Khoa
 	Nam_Thanh_Lap INT
 )
 GO
+ALTER TABLE dbo.Khoa ALTER COLUMN Ten_Khoa NVARCHAR(30)
+GO
 
 CREATE TABLE Khoa_hoc
 (
@@ -19,12 +21,10 @@ CREATE TABLE Khoa_hoc
 )
 GO
 
-CREATE TABLE Chuong_Trinh_Hoc
-(
-	Ma_CT VARCHAR(10) PRIMARY KEY,
-	Ten_CT INT
-)
+ALTER TABLE Chuong_Trinh_Hoc ALTER COLUMN Ten_CT VARCHAR(20)
 GO
+
+
 
 CREATE TABLE Lop
 (
